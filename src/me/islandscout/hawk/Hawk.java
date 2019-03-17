@@ -57,7 +57,7 @@ public class Hawk extends JavaPlugin {
     private BanManager banManager;
     private MuteManager muteManager;
     private MouseRecorder mouseRecorder;
-    //private JudgementDay judgementDay;
+    private JudgementDay judgementDay;
     private Map<UUID, HawkPlayer> profiles;
     private static int SERVER_VERSION;
     public static String FLAG_PREFIX;
@@ -99,8 +99,8 @@ public class Hawk extends JavaPlugin {
         profiles = new ConcurrentHashMap<>();
         sql = new SQL(this);
         sql.createTableIfNotExists();
-        //judgementDay = new JudgementDay(this);
-        //judgementDay.start();
+        judgementDay = new JudgementDay(this);
+        judgementDay.start();
         guiManager = new GUIManager(this);
         lagCompensator = new LagCompensator(this);
         banManager = new BanManager(this);
@@ -129,8 +129,8 @@ public class Hawk extends JavaPlugin {
         HandlerList.unregisterAll(this);
         guiManager.stop();
         guiManager = null;
-        //judgementDay.stop();
-        //judgementDay = null;
+        judgementDay.stop();
+        judgementDay = null;
         lagCompensator = null;
         checkManager.unloadChecks();
         checkManager = null;
@@ -256,9 +256,9 @@ public class Hawk extends JavaPlugin {
         return mouseRecorder;
     }
 
-    //public JudgementDay getJudgementDay() {
-    //    return judgementDay;
-    //}
+    public JudgementDay getJudgementDay() {
+        return judgementDay;
+    }
 
     public boolean canSendJSONMessages() {
         return sendJSONMessages;
